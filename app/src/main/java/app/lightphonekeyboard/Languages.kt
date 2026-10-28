@@ -185,8 +185,7 @@ object Languages {
         code = "nl", name = "Nederlands", rtl = false, hasCase = true,
         rows = QWERTY,
         accents = DUTCH_ACCENTS,
-        dictUrl = repoDictUrl("nl"),
-        voiceUrl = voskUrl("vosk-model-small-nl-0.22.zip"), voiceSizeMb = 39,
+        dictAsset = "nl_words.txt",     // offline fork: Dutch ships inside the APK
     )
     val NL_BE = LangDef(
         code = "nl-be", name = "Nederlands (AZERTY)", rtl = false, hasCase = true,
@@ -196,8 +195,7 @@ object Languages {
             listOf(SH, "w", "x", "c", "v", "b", "n", BK),
         ),
         accents = DUTCH_ACCENTS,
-        dictUrl = repoDictUrl("nl"),     // same Dutch dictionary as the QWERTY variant
-        voiceUrl = voskUrl("vosk-model-small-nl-0.22.zip"), voiceSizeMb = 39,
+        dictAsset = "nl_words.txt",     // same bundled Dutch dictionary as the QWERTY variant
     )
 
     // Russian — standard ЙЦУКЕН layout; ё and ъ (not on the main rows) on the 123-key long-press.

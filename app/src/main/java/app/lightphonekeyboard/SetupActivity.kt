@@ -42,15 +42,6 @@ class SetupActivity : SettingsScreen() {
             LightUi.navItem(c, getString(R.string.setup_emoji), getString(R.string.setup_emoji_sub)) {
                 startActivity(Intent(this, EmojiSettingsActivity::class.java))
             }
-            LightUi.navItem(c, getString(R.string.section_color), getString(R.string.section_color_sub)) {
-                startActivity(Intent(this, ColorSettingsActivity::class.java))
-            }
-            LightUi.navItem(c, getString(R.string.section_pdf), getString(R.string.section_pdf_sub)) {
-                startActivity(Intent(this, PdfViewerActivity::class.java))
-            }
-            LightUi.navItem(c, getString(R.string.section_notify), getString(R.string.section_notify_sub)) {
-                startActivity(Intent(this, NotifySettingsActivity::class.java))
-            }
 
             LightUi.hint(c, getString(R.string.setup_tip))
         })

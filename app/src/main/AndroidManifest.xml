@@ -1,41 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- Voice dictation (optional): download the offline model, then record for on-device STT. -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Light, crisp key/cursor haptics. -->
+    <!-- Offline fork: the only permission. No network, no microphone, no overlays. -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- Colour filter: writes the daltonizer keys. Granted once via adb:
-         adb shell pm grant app.lightphonekeyboard android.permission.WRITE_SECURE_SETTINGS -->
-    <uses-permission
-        android:name="android.permission.WRITE_SECURE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-    <!-- Colour apps picker needs the full launchable-app list. -->
-    <uses-permission
-        android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
-    <!-- Close apps on lock: kill background processes of recently used apps. -->
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <!-- Wheel brightness: write Settings.System.SCREEN_BRIGHTNESS. User grants the appop via the
-         "Modify system settings" screen, opened when the setting is turned on. -->
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
-
-    <!-- Notification overlay: draw the card over apps, and wake the screen when a notification arrives.
-         The listener itself is kept alive by the notification-access binding (no foreground service). -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!-- Package visibility (Android 11+) for speech recognizer components. -->
-    <queries>
-        <intent>
-            <action android:name="android.speech.RecognitionService" />
-        </intent>
-    </queries>
 
     <application
         android:allowBackup="true"
@@ -108,84 +76,11 @@
             android:exported="false"
             android:label="@string/section_keys"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ColorSettingsActivity"
-            android:exported="false"
-            android:label="@string/section_color"
-            android:screenOrientation="portrait" />
-
-        <!-- PDF viewer: opened from the menu, or by tapping a PDF anywhere (VIEW intent). -->
-        <activity
-            android:name=".PdfViewerActivity"
-            android:exported="true"
-            android:label="@string/section_pdf"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="application/pdf" />
-                <data android:scheme="content" />
-                <data android:scheme="file" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".KeyTestActivity"
             android:exported="false"
             android:label="@string/setup_key_test"
             android:screenOrientation="portrait" />
-
-        <!-- Colour apps: choose which apps pause the phone's grayscale while open. -->
-        <activity
-            android:name=".ColorAppsActivity"
-            android:exported="false"
-            android:label="@string/setup_color_apps"
-            android:screenOrientation="portrait" />
-
-        <!-- Colour filter service: watches the foreground app to pause/restore grayscale, handles
-             the colour keymap keys, and (optionally) closes recent apps when the screen locks. -->
-        <service
-            android:name=".ColorFilterService"
-            android:exported="false"
-            android:label="@string/color_service_label"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/color_filter_service_config" />
-        </service>
-
-        <!-- Notification overlay: read the chosen apps' notifications and show them as a card. -->
-        <service
-            android:name=".NotifyService"
-            android:exported="true"
-            android:label="@string/section_notify"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
-
-        <activity
-            android:name=".NotifySettingsActivity"
-            android:exported="false"
-            android:label="@string/section_notify"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NotifyAppsActivity"
-            android:exported="false"
-            android:label="@string/notify_apps"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NotifyActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:showWhenLocked="true"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTop" />
     </application>
 </manifest>
